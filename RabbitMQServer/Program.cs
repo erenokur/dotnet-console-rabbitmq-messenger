@@ -12,22 +12,29 @@ var factory = new ConnectionFactory()
 using (var connection = factory.CreateConnection())
 using (var channel = connection.CreateModel())
 {
-    channel.QueueDeclare(queue: "hello",
+    channel.QueueDeclare(queue: "rabbitmq-queue",
                          durable: false,
                          exclusive: false,
                          autoDelete: false,
                          arguments: null);
 
-    string message = "Hello from RabbitMQ!";
-    var body = Encoding.UTF8.GetBytes(message);
+    while (true)
+    {
+        Console.Write("Enter a message (or 'exit' to quit): ");
+        string message = Console.ReadLine();
 
-    channel.BasicPublish(exchange: "",
-                         routingKey: "hello",
-                         basicProperties: null,
-                         body: body);
+        if (message.ToLower() == "exit")
+        {
+            break;
+        }
 
-    Console.WriteLine(" [x] Sent {0}", message);
+        var body = Encoding.UTF8.GetBytes(message);
+
+        channel.BasicPublish(exchange: "",
+                             routingKey: "rabbitmq-queue",
+                             basicProperties: null,
+                             body: body);
+
+        Console.WriteLine(" [x] Sent {0}", message);
+    }
 }
-
-Console.WriteLine(" Press [enter] to exit.");
-Console.ReadLine();

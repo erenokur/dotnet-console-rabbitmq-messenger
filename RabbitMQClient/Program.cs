@@ -14,7 +14,7 @@ var factory = new ConnectionFactory()
 using (var connection = factory.CreateConnection())
 using (var channel = connection.CreateModel())
 {
-    channel.QueueDeclare(queue: "hello",
+    channel.QueueDeclare(queue: "rabbitmq-queue",
                          durable: false,
                          exclusive: false,
                          autoDelete: false,
@@ -28,7 +28,7 @@ using (var channel = connection.CreateModel())
         Console.WriteLine(" [x] Received {0}", message);
     };
 
-    channel.BasicConsume(queue: "hello",
+    channel.BasicConsume(queue: "rabbitmq-queue",
                          autoAck: true,
                          consumer: consumer);
 
