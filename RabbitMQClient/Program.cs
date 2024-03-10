@@ -25,12 +25,24 @@ using (var channel = connection.CreateModel())
     {
         var body = ea.Body.ToArray();
         var message = Encoding.UTF8.GetString(body);
-        Console.WriteLine(" [x] Received {0}", message);
+        Console.WriteLine(" [x] Received: {0}", message);
+
+        if (message == "exit")
+        {
+            Console.WriteLine("Exit message received. Exiting...");
+            Environment.Exit(0);
+        }
     };
 
     channel.BasicConsume(queue: "rabbitmq-queue",
                          autoAck: true,
                          consumer: consumer);
+
+    connection.ConnectionShutdown += (sender, ea) =>
+    {
+        Console.WriteLine("Connection to RabbitMQ server lost. Exiting...");
+        Environment.Exit(0);
+    };
 
     Console.WriteLine(" Press [enter] to exit.");
     Console.ReadLine();
