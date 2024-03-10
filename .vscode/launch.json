@@ -1,0 +1,33 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Server",
+      "type": "coreclr",
+      "request": "launch",
+      "program": "${workspaceFolder}/RabbitMQServer/bin/Debug/net8.0/RabbitMQServer.dll",
+      "args": [],
+      "cwd": "${workspaceFolder}/RabbitMQServer",
+      "console": "internalConsole",
+      "stopAtEntry": false,
+      "preLaunchTask": "server build"
+    },
+    {
+      "name": "Client",
+      "type": "coreclr",
+      "request": "launch",
+      "program": "${workspaceFolder}/RabbitMQClient/bin/Debug/net8.0/RabbitMQClient.dll",
+      "args": [],
+      "cwd": "${workspaceFolder}/RabbitMQClient",
+      "console": "internalConsole",
+      "stopAtEntry": false,
+      "preLaunchTask": "client build"
+    }
+  ],
+  "compounds": [
+    {
+      "name": "Server/Client",
+      "configurations": ["Server", "Client"]
+    }
+  ]
+}

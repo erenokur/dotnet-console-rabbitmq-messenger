@@ -1,0 +1,33 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "server build",
+      "command": "dotnet",
+      "type": "shell",
+      "args": ["build"],
+      "group": "build",
+      "presentation": {
+        "reveal": "silent"
+      },
+      "problemMatcher": "$msCompile",
+      "options": {
+        "cwd": "${workspaceFolder}/RabbitMQServer"
+      }
+    },
+    {
+      "label": "client build",
+      "command": "dotnet",
+      "type": "shell",
+      "args": ["build"],
+      "group": "build",
+      "presentation": {
+        "reveal": "silent"
+      },
+      "problemMatcher": "$msCompile",
+      "options": {
+        "cwd": "${workspaceFolder}/RabbitMQClient"
+      }
+    }
+  ]
+}
