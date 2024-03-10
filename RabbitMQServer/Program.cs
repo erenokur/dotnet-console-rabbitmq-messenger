@@ -19,22 +19,21 @@ using (var channel = connection.CreateModel())
                          autoDelete: false,
                          arguments: null);
 
+    Console.Write("Enter a message (or 'exit' to quit): ");
     while (running)
     {
-        Console.Write("Enter a message (or 'exit' to quit): ");
         string message = Console.ReadLine();
-
-        var body = Encoding.UTF8.GetBytes(message);
 
         channel.BasicPublish(exchange: "",
                              routingKey: "rabbitmq-queue",
                              basicProperties: null,
-                             body: body);
+                             body: Encoding.UTF8.GetBytes(message));
 
         Console.WriteLine(" [x] Sent: {0}", message);
 
         if (message.ToLower() == "exit")
         {
+            Console.WriteLine("Exit message received. Exiting...");
             break;
         }
     }

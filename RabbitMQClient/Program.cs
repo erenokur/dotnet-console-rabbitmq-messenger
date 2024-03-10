@@ -23,8 +23,7 @@ using (var channel = connection.CreateModel())
     var consumer = new EventingBasicConsumer(channel);
     consumer.Received += (model, ea) =>
     {
-        var body = ea.Body.ToArray();
-        var message = Encoding.UTF8.GetString(body);
+        var message = Encoding.UTF8.GetString(ea.Body.ToArray());
         Console.WriteLine(" [x] Received: {0}", message);
 
         if (message == "exit")
